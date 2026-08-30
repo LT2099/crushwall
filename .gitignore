@@ -1,0 +1,4 @@
+# SQLite 数据库与上传图片不入库
+cw-api/data/
+cw-api/uploads/*
+!cw-api/uploads/.gitkeep

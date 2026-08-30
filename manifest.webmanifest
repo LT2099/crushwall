@@ -1,0 +1,25 @@
+{
+  "name": "蓝天星球 SkyPlanet",
+  "short_name": "蓝天星球",
+  "description": "免登录的校园表白墙与匿名社区",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f0f7fe",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
