@@ -10,8 +10,8 @@ define('SITE_NAME', '蓝天星球');
 // 管理员密码（部署前务必修改！建议 16 位以上随机字符串）
 // ADMIN_PASSWORD_HASH：password_hash() 生成的 bcrypt 哈希，登录时用 password_verify() 校验，
 // 不再明文比对。ADMIN_PASSWORD 仅作为「未配置哈希时的回退」（兼容旧部署），配置了哈希后以哈希为准。
-define('ADMIN_PASSWORD', 'admin');
-define('ADMIN_PASSWORD_HASH', ''); // 留空则回退明文比对（默认密码 admin）
+define('ADMIN_PASSWORD', getenv('CW_ADMIN_PASSWORD') ?: bin2hex(random_bytes(16))); // 生产必须通过环境变量 CW_ADMIN_PASSWORD 注入强密码；未注入则生成随机值，杜绝默认弱口令
+define('ADMIN_PASSWORD_HASH', ''); // 优先以 bcrypt 哈希校验；留空则回退 ADMIN_PASSWORD（已随机化兜底，不存在默认明文口令）
 
 // 后台登录防爆破：连续失败 ADMIN_MAX_FAILS 次锁定 ADMIN_LOCK_MINUTES 分钟
 define('ADMIN_MAX_FAILS', 5);
@@ -23,7 +23,7 @@ define('DDOS_WINDOW', 60);
 define('DDOS_THRESHOLD', 600);
 
 // 密钥：用于管理员 token 签名（部署时改为随机字符串）
-define('ADMIN_SECRET', 'CHANGE_ME_TO_A_RANDOM_STRING');
+define('ADMIN_SECRET', getenv('CW_ADMIN_SECRET') ?: bin2hex(random_bytes(32))); // 生产必须通过环境变量 CW_ADMIN_SECRET 注入随机密钥，用于管理员 token 签名
 
 // 数据库文件路径
 define('DB_PATH', __DIR__ . '/data/crushwall.db');
