@@ -30,7 +30,7 @@
 
 ## 开源说明
 
-- 默认后台账号：`admin` / 密码：`admin`（部署前请务必修改 `cw-api/config.php`）
+- 默认后台账号：`admin`（密码已随机化，无默认口令）——部署前请务必通过环境变量 `CW_ADMIN_PASSWORD` / `CW_ADMIN_SECRET` 设置后台密码与 token 签名密钥，否则实例以随机凭据运行且不可恢复，详见下方部署说明
 - 此开源版本已移除生产环境的百度推送 Token、管理员密钥、真实域名等敏感信息
 - 数据库（`cw-api/data/`）与上传文件（`cw-api/uploads/`）默认 gitignore 不入库
 
@@ -59,8 +59,8 @@ crushwall/
 编辑 `cw-api/config.php`：
 
 ```php
-define('ADMIN_PASSWORD', '换成你的强密码');
-define('ADMIN_SECRET', '换成随机字符串');
+    define('ADMIN_PASSWORD', getenv('CW_ADMIN_PASSWORD') ?: bin2hex(random_bytes(16))); // 必须设置环境变量 CW_ADMIN_PASSWORD
+    define('ADMIN_SECRET', getenv('CW_ADMIN_SECRET') ?: bin2hex(random_bytes(32))); // 必须设置环境变量 CW_ADMIN_SECRET
 ```
 
 ### 2. 上传到服务器
